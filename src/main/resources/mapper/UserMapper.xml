@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.peaituser.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.peait.peaituser.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="vx_code" jdbcType="VARCHAR" property="vxCode" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="user_vocation" jdbcType="INTEGER" property="userVocation" />
+    <result column="user_sex" jdbcType="INTEGER" property="userSex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, pass_word, user_email, vx_code, phone, user_vocation, user_sex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_name = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByPhoneOrUserName" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where user_name = #{mobile,jdbcType=VARCHAR} or phone = #{mobile,jdbcType=VARCHAR}
+  </select>
+
+  <select id="IsExistValidata" resultType="java.lang.Integer">
+      select
+        count(id)
+      from ${tableName}
+      where ${fileName} = #{fileValue,jdbcType=INTEGER}
+    </select>
+  <select id="selectUserByUserName" resultType="com.peait.peaituser.entity.User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where user_name = #{userName,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.peait.peaituser.entity.User">
+    insert into user (id, user_name, pass_word, 
+      user_email, vx_code, phone, 
+      user_vocation, user_sex)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{vxCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{userVocation,jdbcType=INTEGER}, #{userSex,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.peaituser.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="passWord != null">
+        pass_word,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="vxCode != null">
+        vx_code,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="userVocation != null">
+        user_vocation,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vxCode != null">
+        #{vxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userVocation != null">
+        #{userVocation,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.peaituser.entity.User">
+    update user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vxCode != null">
+        vx_code = #{vxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userVocation != null">
+        user_vocation = #{userVocation,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.peaituser.entity.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      vx_code = #{vxCode,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      user_vocation = #{userVocation,jdbcType=INTEGER},
+      user_sex = #{userSex,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
