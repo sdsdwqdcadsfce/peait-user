@@ -1,15 +1,16 @@
 package com.peait.peaituser.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.peait.peaituser.validata.IsExist;
 import lombok.Data;
 
 @Data
 public class User {
-    private Long id;
+    private String id;
     @IsExist(tableName = "user",fileName = "user_name")
     private String userName;
-
+    @JsonIgnore
     private String passWord;
 
     private String userEmail;

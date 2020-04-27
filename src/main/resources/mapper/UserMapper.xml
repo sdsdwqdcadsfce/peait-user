@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.peait.peaituser.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.peait.peaituser.entity.User">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
@@ -14,11 +14,11 @@
   <sql id="Base_Column_List">
     id, user_name, pass_word, user_email, vx_code, phone, user_vocation, user_sex
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="string" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
-    where user_name = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByPhoneOrUserName" parameterType="string" resultMap="BaseResultMap">
@@ -35,14 +35,23 @@
       where ${fileName} = #{fileValue,jdbcType=INTEGER}
     </select>
   <select id="selectUserByUserName" resultType="com.peait.peaituser.entity.User">
+  select
+  <include refid="Base_Column_List" />
+  from user
+  where user_name = #{userName,jdbcType=BIGINT}
+</select>
+  <select id="getUserList" resultType="com.peait.peaituser.entity.User">
     select
     <include refid="Base_Column_List" />
     from user
-    where user_name = #{userName,jdbcType=BIGINT}
+    <if test="userName != null">
+      where user_name like concat('%',#{userName,jdbcType=BIGINT} ,'%')
+    </if>
+
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="string">
     delete from user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.peait.peaituser.entity.User">
     insert into user (id, user_name, pass_word, 
@@ -82,7 +91,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -132,7 +141,7 @@
         user_sex = #{userSex,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.peait.peaituser.entity.User">
     update user
@@ -143,6 +152,6 @@
       phone = #{phone,jdbcType=VARCHAR},
       user_vocation = #{userVocation,jdbcType=INTEGER},
       user_sex = #{userSex,jdbcType=INTEGER}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

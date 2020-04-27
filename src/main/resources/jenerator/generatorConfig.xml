@@ -12,25 +12,25 @@
             <property name="suppressDate" value="true"/>
         </commentGenerator>
 
-        <jdbcConnection userId="root" password="123456" driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://49.233.93.180:3306/spider"/>
+        <jdbcConnection userId="root" password="jinzhengda" driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://49.233.93.180:3306/project"/>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.gxf.reptile.entity" targetProject="C:\projectgs\reptile\src\main\java">
+        <javaModelGenerator targetPackage="com.peait.peaituser.entity" targetProject="C:\newProject\peait-user\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="resources.mapper" targetProject="C:\projectgs\reptile\src\main">
+        <sqlMapGenerator targetPackage="resources.mapper" targetProject="C:\newProject\peait-user\src\main">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.gxf.reptile.mapper" type="XMLMAPPER" targetProject="C:\projectgs\reptile\src\main\java">
+        <javaClientGenerator targetPackage="com.peait.peaituser.mapper" type="XMLMAPPER" targetProject="C:\newProject\peait-user\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table domainObjectName="ZhubajieSpider" tableName="zhubajie_spider" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table domainObjectName="MenuList" tableName="menu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
     </context>
 </generatorConfiguration>

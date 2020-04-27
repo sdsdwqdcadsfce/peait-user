@@ -5,15 +5,17 @@ import com.peait.peaituser.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Long id);
+    User selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(User record);
 
@@ -24,4 +26,6 @@ public interface UserMapper {
     User selectByPhoneOrUserName(@Param("mobile") String mobile);
 
     User selectUserByUserName(@Param("userName")String userName);
+
+    List<User> getUserList(@Param("userName")String userNamae);
 }
