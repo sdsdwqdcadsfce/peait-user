@@ -34,6 +34,16 @@
       from ${tableName}
       where ${fileName} = #{fileValue,jdbcType=INTEGER}
     </select>
+
+  <select id="IsExistValidataNotId" resultType="java.lang.Integer">
+      select
+        count(id)
+      from ${tableName}
+      where ${fileName} = #{fileValue,jdbcType=INTEGER}
+    <if test="id != null">
+      and id !=#{id,jdbcType=BIGINT}
+    </if>
+    </select>
   <select id="selectUserByUserName" resultType="com.peait.peaituser.entity.User">
   select
   <include refid="Base_Column_List" />

@@ -1,10 +1,12 @@
 package com.peait.peaituser.entity;
 
 import com.peait.peaituser.validata.IsExist;
+import com.peait.peaituser.validata.IsExistNotId;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Data
+@IsExistNotId(tableName = "user",fileName = "user_name,user_email,phone",entityName = "userName,email,phone")
 public class UpdateVO {
     @NotBlank(message = "id不能为空")
     private String id;

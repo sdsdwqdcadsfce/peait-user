@@ -28,4 +28,6 @@ public interface UserMapper {
     User selectUserByUserName(@Param("userName")String userName);
 
     List<User> getUserList(@Param("userName")String userNamae);
+
+    int IsExistValidataNotId(@Param("tableName") String tableName, @Param("fileName") String fileName, @Param("fileValue") Object fileValue,@Param("id")String id);
 }
